@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, height=device-height,  initial-scale=1.0, user-scalable=no;user-scalable=0;"/>
+    <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Nunito Sans' rel='stylesheet'>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--===============================================================================================-->
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+    <style>
+        /* A simple reset. */
+        *,
+        ::before,
+        ::after {
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        
+        /* Headings use a different font because they’re hipsters. */
+        h1,
+        h2 {
+            color: #2a2f2c;
+            font-family: 'Nunito Sans';
+            font-weight: 300;
+            line-height: 1.125;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        /* Set up general layout rules for outer containers. */
+        .content,
+        .results {
+            width: 90vw;
+            max-width: 550px;
+            margin: 8vh auto;
+        }
+
+        .content__heading {
+            font-size: 125%;
+        }
+
+        .content__lede {
+            margin-top: 8px;
+            margin-top: 0.5rem;
+            font-size: 87.5%;
+        }
+
+        .results__heading {
+            font-size: 110%;
+        }
+
+        .results__display-wrapper {
+            margin-top: 16px;
+            margin-top: 1rem;
+            padding: 8px 16px;
+            padding: 0.5rem 1rem;
+            background: #f9fdfe;
+            border: 1px solid #cdcfcf;
+            overflow-x: scroll;
+        }
+
+        .contact-form {
+            position: relative;
+            display: block;
+            margin: 0;
+            padding: 16px 0 32px;
+            padding: 1rem 0 2rem;
+            overflow: hidden;
+        }
+
+        .popup {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 5%;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        .content {
+            background-color: #fefefe;
+            margin: auto;
+            width: 90%;
+            border-radius: 25px;
+        }
+
+        #myBtn {
+            display: block;
+            position: absolute;
+            z-index: 99;
+            font-size: 14px;
+            border: none;
+            outline: none;
+            background-color: #189ADA;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 5px;
+            top: 70%;
+            right: -60px;
+            width: auto;
+        }
+
+        #myBtn:hover {
+            animation: rotate 0.7s ease-in-out both;
+        }
+        
+        
+        
+        @keyframes rotate{ 
+        0%{
+            transform: rotate(90deg) translate3d(0, 0, 0)
+        }
+        25%
+            {transform: rotate(91deg) translate3d(0, 0, 0)}
+        50%
+            {transform: rotate(89deg) translate3d(0, 0, 0)}
+        75%
+            {transform: rotate(91deg) translate3d(0, 0, 0)}
+        100%
+            {transform: rotate(90deg) translate3d(0, 0, 0)}
+        }
+
+   
+            /*
+        #myBtn:hover {
+            background-color: #555;
+        }
+        */
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            padding-top: 0.7%;
+            padding-right: 4%;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .wrap-input100 {
+            font-family: 'Nunito Sans';
+            src: url('../fonts/ubuntu/Ubuntu-Bold.ttf');
+        }
+
+        .radioinput {
+            padding-left: 8%;
+            border-radius: 31px;
+            font-family: 'Nunito Sans';
+            font-size: 18px;
+            color: #8f8fa1;
+            line-height: 1.2;
+        }
+
+        input[type="radio"] {
+            margin: 0 5px 20px 5px;
+        }
+
+        #inch {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            background: #fff;
+            border-radius: 31px;
+            font-family: 'Nunito Sans';
+            font-size: 18px;
+            color: #8f8fa1;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            padding-left: 2%;
+            margin: 0 0px 10px -5px;
+        }
+
+        #ft {
+            display: inline-block;
+            position: relative;
+            width: 15%;
+            background: #fff;
+            border-radius: 31px;
+            font-family: 'Nunito Sans';
+            font-size: 18px;
+            color: #8f8fa1;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            padding-left: 2%;
+            margin: 0 0px 10px 5px;
+        }
+
+        #cm {
+            display: inline-block;
+            position: relative;
+            width: 15%;
+            background: #fff;
+            border-radius: 31px;
+            font-family: 'Nunito Sans';
+            font-size: 18px;
+            color: #8f8fa1;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            padding-left: 2%;
+            margin: 0 0px 10px -5px;
+        }
+
+        #httext {
+            display: block;
+            padding-left: 7%;
+            margin-bottom: 16px;
+            position: relative;
+            background: #fff;
+            border-radius: 31px;
+            font-family: 'Nunito Sans';
+            font-size: 18px;
+            color: #8f8fa1;
+            line-height: 1.2;
+        }
+
+        .heightdiv {
+            padding-left: 6%;
+        }
+
+        .or {
+            margin: 0 3% 0 6%;
+        }
+
+        .and {
+            margin: 0 1% 0 1%;
+        }
+
+        .color {
+            font-size: 18px;
+            color: #8f8fa1;
+            line-height: 1.2;
+            display: inline-block;
+            font-family: 'Nunito Sans';
+        }
+
+        .ht {
+            text-align: start;
+        }
+
+        @keyframes visi {
+            from {
+                visibility: hidden;
+            }
+
+            to {
+                visibility: visible;
+            }
+        }
+
+        #suf1,
+        #suf2,
+        #suf3 {
+            display: inline-block;
+            margin: 0 0 0 -4px;
+            visibility: hidden;
+            transition: visibility 1s;
+            font-family: 'Nunito Sans';
+        }
+        .buttontext{
+            transform: rotate(90deg);
+        }
+        .out{
+            padding: 0 0 2500px;
+        }
+        /* Set up fonts, colors and all that jazz. */
+        body {
+            background: #f9fdfe;
+            color: #686a69;
+            font-family: 'Nunito Sans';
+            font-size: 18px;
+            line-height: 1.75;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="out">
+
+    <button id="myBtn" class="buttontext"><span class="btnin">Generate Sample Report</span></button>
+
+    <div class="container-contact100 popup" name="popup" id="popup">
+
+        <div class="wrap-contact100 content">
+            <form class="contact100-form validate-form content__form contact-form" id="pdfform" name="pdfform">
+                <span class="close">&times;</span>
+                <span class="contact100-form-title">
+                    Generate a Sample Report
+                </span>
+
+                <div class="wrap-input100 validate-input" data-validate="Please enter your name">
+                    <input class="input100" required type="text" id="name" name="PName" placeholder="Full Name">
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Please enter your email: e@a.x">
+                    <input class="input100" required type="email" id="email" name="Email" placeholder="E-mail">
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Please enter your age">
+                    <input class="input100" type="number" id="age" name="Age" placeholder="Age" min="0">
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input radioinput" data-validate="Please enter your gender">
+                    <input type="radio" checked id="male" name="Gender" value="M">
+                    <label style="font-size: 18px; color: #8f8fa1; line-height: 1.2;" for="male">Male</label>
+                    <input type="radio" id="female" name="Gender" value="F">
+                    <label style="font-size: 18px; color: #8f8fa1; line-height: 1.2;" for="female">Female</label>
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input">
+                    <p id="httext">Enter Height in <br></p>
+                    <div class="heightdiv validate-input">
+                        <input type="number" min="0" max="9" class="ht" step="any" id="ft" placeholder="Feet">
+                        <p id="suf1">ft</p>
+                        <span class="focus-input100"></span>
+                        <p class="color and">and</p>
+                        <input type="number" min="0" max="11" step="any" class="ht" id="inch" placeholder="Inches">
+                        <p id="suf2">in</p>
+                        <span class="focus-input100"></span>
+                        <p class="or color">or</p>
+                        <input type="number" min="0" name="Height" step="any" class="ht" id="cm" placeholder="Cms">
+                        <p id="suf3">cms</p>
+                        <span class="focus-input100"></span>
+                    </div>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Please enter your weight in kilograms">
+                    <input class="input100" required type="number" id="weight" name="Weight"
+                        placeholder="Weight in kilograms" min="0">
+                    <span class="focus-input100"></span>
+                </div>
+
+                <div class="container-contact100-form-btn">
+                    <button class="contact100-form-btn" type="submit" id="send" onclick="return openlink()">Generate!
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+  
+
+</div>
+
+</body>
+<!--===============================================================================================-->
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--==================================================================-->
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===========================================================================
+<!--===============================================================================================-->
+<script src="js/main.js"></script>
+
+<script>
+
+    var pdfform = document.getElementById("pdfform");
+    var ftht = document.getElementById("ft");
+    var inht = document.getElementById("inch");
+    var cmht = document.getElementById("cm");
+
+    var suf1 = document.getElementById("suf1");
+    var suf2 = document.getElementById("suf2");
+    var suf3 = document.getElementById("suf3");
+
+    $(window).scroll(function(e){ 
+        const viewport = document.querySelector('meta[name="viewport"]');
+        var $el = $('#myBtn'); 
+        var c = $('html').outerHeight();
+        var isPositionFixed = ($el.css('position') == 'fixed');
+        
+        if ($(this).scrollTop() > 520 && !isPositionFixed){ 
+          $el.css({'position': 'fixed', 'top': '80px'});
+        }
+        if ($(this).scrollTop() < 520 && isPositionFixed){
+          $el.css({'position': 'absolute', 'top': '600px'}); 
+        } 
+      });
+
+    function openlink() {
+
+        console.log("run hua");
+
+        var namepdf = document.forms["pdfform"]["PName"].value;
+        var emailpdf = document.forms["pdfform"]["Email"].value;
+        var heightpdf = document.forms["pdfform"]["Height"].value;
+        var weightpdf = document.forms["pdfform"]["Weight"].value;
+
+        if (namepdf === "" || emailpdf === "" || heightpdf === "" || weightpdf === "" || heightpdf === "0") {
+            return false;
+        } else {
+            setTimeout(function () { (window.open('/generatepdf/report.pdf', '_blank')) }, 100);
+            return true;
+        }
+    }
+
+    ftht.onkeyup = function () {
+        cmht.value = Math.round(30.48 * ftht.value) + Math.round(2.54 * inht.value);
+        suf1.style.visibility = "visible";
+        suf3.style.visibility = "visible";
+    }
+    inht.onkeyup = function () {
+        cmht.value = Math.round(30.48 * ftht.value) + Math.round(2.54 * inht.value);
+        suf2.style.visibility = "visible";
+        suf3.style.visibility = "visible";
+    }
+    cmht.onkeyup = function () {
+        ftht.value = Math.floor(0.0328 * cmht.value);
+        inht.value = Math.round(0.394 * cmht.value) - 12 * ftht.value;
+        suf1.style.visibility = "visible";
+        suf2.style.visibility = "visible";
+        suf3.style.visibility = "visible";
+    }
+
+
+</script>
+<script type="text/javascript" src="./formup.js">
+</script>
+
+</html>

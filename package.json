@@ -1,0 +1,31 @@
+{
+  "name": "module2",
+  "version": "1.0.0",
+  "description": ".",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "deploy": "serverless deploy"
+  },
+  "keywords": [
+    "example",
+    "data",
+    "selfie"
+  ],
+  "author": "Daniel Shiffman",
+  "license": "MIT",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "express": "^4.16.4",
+    "lodash": "^4.17.15",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.4.6",
+    "puppeteer": "^3.1.0",
+    "serverless-http": "^2.5.0",
+    "title-case": "^3.0.2"
+  },
+  "devDependencies": {
+    "serverless": "^1.73.1"
+  }
+}
